@@ -1,0 +1,16 @@
+h1{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+table{
+    position: relative;
+    top:15px;
+}
+
+a.btn{
+    position: relative;
+    top: 30px;
+}
+
