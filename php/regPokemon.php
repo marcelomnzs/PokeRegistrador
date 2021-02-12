@@ -1,26 +1,36 @@
 <?php
     session_start();
+    require "conexaoPDO.php";
+
     $nome = $_POST['pokemon'];
     $altura = $_POST['altura'];
     $peso = $_POST['peso'];
     $genero = $_POST['genero'];
     $tipo = $_POST['tipo'];
+    $id_treinador = $_SESSION['id_usuario'];
 
-    $pokemons = file('pokemons.csv');
+    //Verifica se há o pokémon a ser registrado já está na base de registros
+    $stmt = $pdo->prepare("SELECT * FROM pokemon WHERE id_usuario = ?");
+    $stmt->execute([$id_treinador]);
+    $registrados = $stmt->fetchAll();
 
-    foreach($pokemons as $pokemon) {
-        if($pokemon['pokemon'] == $nome && $pokemon['altura'] == $altura && $pokemon['peso'] == $peso){
-            header('location: index.php?error=Pokémon já cadastrado');
+    foreach($registrados as $pokemon){
+        if($pokemon['nome'] == $nome && $pokemon['altura'] == $altura && $pokemon['peso'] == $peso && $pokemon['genero'] == $generos){
+            header('location: /?error=Pokémon já registrado!');
             exit();
         }
     }
 
-
-    $fp = fopen('pokemons.csv', 'a'); 
-	fwrite($fp, $_POST['pokemon'] . ';' . $_POST['altura'] . ';' . $_POST['peso'] . ';' . $_POST['genero'] . ';' .  $_POST['tipo'] . ';' .  $_SESSION['user'] . ";\n");
-    fclose($fp);
+    $stmt = $pdo->prepare("INSERT INTO pokemon (nome,altura,peso,genero,tipo,id_usuario) VALUES(?,?,?,?,?,?)");
+    $stmt->bindParam(1,$nome);
+    $stmt->bindParam(2,$altura);
+    $stmt->bindParam(3,$peso);
+    $stmt->bindParam(4,$genero);
+    $stmt->bindParam(5,$tipo);
+    $stmt->bindParam(6,$id_treinador);
+    $stmt->execute();
     
-    header('Location: tabelaPokemon.php')
+    header('Location: tabelaPokemon.php');
 ?>
 
 

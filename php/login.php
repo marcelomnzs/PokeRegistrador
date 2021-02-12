@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,10 @@
     <!-- Link JS -->
     <link src="../js/login.js">
     <script>
+        <?php if (isset($_GET['msg'])): ?>
+            alert('<?= $_GET['msg']?>');    
+        <?php endif ?>
+
         <?php if (isset($_GET['error'])): ?>
             alert('<?= $_GET['error']?>');    
         <?php endif ?>
