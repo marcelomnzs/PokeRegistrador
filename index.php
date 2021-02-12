@@ -68,8 +68,8 @@ if (!isset($_SESSION['user'])) {
                             <label for="genero" class="text-uppercase">Gênero</label>
                             <select name="genero" required>
                                 <option value="genero" selected disabled>Escolha uma opção...</option>
-                                <option value="macho">Macho</option>
-                                <option value="femea">Fêmea</option>
+                                <option value="Macho">Macho</option>
+                                <option value="Fêmea">Fêmea</option>
                             </select>
                         </div>
 

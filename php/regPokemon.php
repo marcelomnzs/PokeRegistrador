@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $nome = $_POST['pokemon'];
     $altura = $_POST['altura'];
     $peso = $_POST['peso'];
@@ -16,7 +17,7 @@
 
 
     $fp = fopen('pokemons.csv', 'a'); 
-	fwrite($fp, $_POST['pokemon'] . ';' . $_POST['altura'] . ';' . $_POST['peso'] . ';' . $_POST['genero'] . ';' .  $_POST['tipo'] .";\n");
+	fwrite($fp, $_POST['pokemon'] . ';' . $_POST['altura'] . ';' . $_POST['peso'] . ';' . $_POST['genero'] . ';' .  $_POST['tipo'] . ';' .  $_SESSION['user'] . ";\n");
     fclose($fp);
     
     header('Location: tabelaPokemon.php')

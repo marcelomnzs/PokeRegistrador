@@ -1,6 +1,7 @@
 <?php
     session_start();
     include'linksBootstrap.php';
+    $usuario_ativo = $_SESSION['user'];
 ?>
 
 <!DOCTYPE html>
@@ -49,18 +50,27 @@
             <th>Peso</th>
             <th>Gênero</th>
             <th>Tipo</th>
+            <th>Dono</th>
             <th></th>
         </thead>
             <?php foreach ($pokemons as $pokemon =>$poke) : ?>
-                <tr>
-                    <td><?= $poke[0] ?> </td>
-                    <td><?= $poke[1] ?></td>
-                    <td><?= $poke[2] ?></td>
-                    <td><?= $poke[3] ?></td>
-                    <td><?= $poke[4] ?></td>
-                    <td><a href="deletpokemon.php?pokemon=<?= $pokemon ?>" class="excluir">Deletar pokémon</a></td>
-                </tr>
+                <?php
+                    if($poke[5] == $usuario_ativo){
+                        echo "
+                        <tr>
+                            <td> $poke[0]  </td>
+                            <td> $poke[1] </td>
+                            <td> $poke[2] </td>
+                            <td> $poke[3] </td>
+                            <td> $poke[4] </td>
+                            <td> $poke[5] </td>
+                            <td><a href='deletpokemon.php?pokemon=<?= $pokemon ?>' class='excluir'>Deletar pokémon</a></td>
+                        </tr>
+                        ";
+                    }
+                ?>
             <?php endforeach ?>
+
         </table>
         <div class="col-md-12 " style="text-align: center;">
             <a class="btn btn-outline-info" href="../index.php" role="button">Registrar mais capturas</a>
